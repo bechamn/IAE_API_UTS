@@ -23,3 +23,8 @@ Route::delete('/items/{id}', [ItemController::class, 'destroy']);
 
 Route::get('/orders', [OrderController::class, 'index']);
 Route::post('/orders/{id}/confirm', [OrderController::class, 'confirm']);
+
+// User routes
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{user}', [UserController::class, 'show']);
+Route::post('/logout', [UserController::class, 'logout']);

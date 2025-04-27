@@ -21,3 +21,7 @@ Route::post('/register', [UserController::class, 'createUser']);
 Route::post('/login', [UserController::class, 'loginUser']);
 Route::get('/items', [ItemController::class, 'index']);
 Route::post('/order', [OrderController::class, 'store']);
+
+// User routes
+
+Route::post('/logout', [UserController::class, 'logout']);
