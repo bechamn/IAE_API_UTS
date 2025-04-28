@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth; // Add this import
 
 class OrderController extends Controller
 {
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -81,7 +82,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Auth::user()->orders()->with('items')->get(); // Changed from auth() to Auth
+        $orders = Order::all(); // Changed from auth() to Auth
         return response()->json($orders);
     }
 
@@ -92,5 +93,25 @@ class OrderController extends Controller
         }
 
         return response()->json($order->load('items'));
+    }
+
+    public function confirm($id) {
+        try {
+            $order = Order::findOrFail($id);
+            
+            // Update order status
+            $order->update(['status' => 'confirmed']);
+    
+            // Return a properly formatted JSON response
+            return response()->json([
+                'status' => true,
+                'message' => 'Order confirmed successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error confirming the order: ' . $e->getMessage()
+            ], 500);
+        }
     }
 } 

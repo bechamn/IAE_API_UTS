@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function index()
+    {
+        $items = Item::all();
+        return response()->json($items);
+    }
+    
     public function store(Request $request) {
         return Item::create($request->all());
     }
